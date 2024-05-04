@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"editor.fontFamily": "MesloLGMDZ Nerd Font, Consolas, monospace, 'Courier New'",
+		"robot.language-server.python": "${workspaceFolder}/venv/Scripts/python.exe",
+		"robot.pythonpath": [
+			"${workspaceFolder}"
+			],
+		"robot.interactiveConsole.arguments": [
+			["--output", "${workspaceFolder}/outputs"]
+		]
+	}
+}
