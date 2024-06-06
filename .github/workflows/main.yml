@@ -34,7 +34,7 @@ jobs:
           rfbrowser init
 
       - name: Run Robot Framework tests
-        run: python -m robot --outputdir results --pythonpath . tests/authentication/login.robot
+        run: python -m robot --exitonfailure --outputdir results --pythonpath . tests
 
       - name: Upload test results
         uses: actions/upload-artifact@v3
