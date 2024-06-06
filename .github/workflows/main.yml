@@ -3,6 +3,9 @@ on:
   push:
     branches:
       - main
+  pull_request:
+  workflow_dispatch:
+  
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -15,22 +18,23 @@ jobs:
         with:
           python-version: 3.8
 
-      - name: Install Python dependencies
-        run: |
-          pip install -r requirements.txt
-
       - name: Install Node.js
         uses: actions/setup-node@v2
         with:
           node-version: '14'
 
-      - name: Install robotframework-browser
+      - name: Install Python dependencies
         run: |
-          pip install robotframework-browser
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+
+      - name: Install the node dependencies
+        run: |
           rfbrowser init
 
       - name: Run Robot Framework tests
-        run: robot --pythonpath . tests/authentication/login.robot -d results
+        run: python -m robot --exitonfailure --outputdir results --pythonpath . tests
 
       - name: Upload test results
         uses: actions/upload-artifact@v3
