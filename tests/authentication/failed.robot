@@ -4,5 +4,5 @@ Variables   data/dummy/users.py
 
 *** Test Cases ***
 Test of pythonpath
-    Should Be Equal  ${True}  ${False}
+    Common Dummy Keywords
 
