@@ -1,0 +1,49 @@
+name: Robot Framework Browser Setup Environment
+
+on:
+  # Define que este workflow pode ser chamado por outros workflows.
+  workflow_call: {}
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      # Define saídas que outros jobs podem usar.
+      python-version: ${{ steps.python.outputs.python-version }}
+      node-version: ${{ steps.node.outputs.node-version }}
+      setup-completed: ${{ steps.setup-completed.outputs.result }}
+
+    steps:
+      - name: Checkout code
+        # Obtém o código do repositório para preparar o ambiente.
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        id: python
+        # Configura a versão do Python.
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.8
+
+      - name: Set up Node.js
+        id: node
+        # Configura a versão do Node.js.
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install Python dependencies
+        # Instala as dependências Python a partir do arquivo requirements.txt.
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Install Node.js dependencies
+        # Executa um comando personalizado para instalar dependências Node.js.
+        run: |
+          rfbrowser init
+         
+      - name: Complete Setup
+        id: setup-completed
+        # Define uma saída para indicar que a configuração foi concluída.
+        run: echo "::set-output name=result::success"
