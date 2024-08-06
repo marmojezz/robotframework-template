@@ -1,0 +1,50 @@
+name: Run Tests on Pull Request
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  setup:
+    # Job que configura o ambiente.
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.8
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+
+      - name: Install Python dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Install Node.js dependencies
+        run: |
+          rfbrowser init
+
+  test:
+    needs: setup
+    runs-on: ubuntu-latest
+    if: success()
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run Robot Framework tests
+        run: python -m robot --exitonfailure --outputdir results --pythonpath . tests
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: results
