@@ -4,10 +4,9 @@ on:
   pull_request:
     branches:
       - main
-
+  
 jobs:
-  setup:
-    # Job que configura o ambiente.
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -18,7 +17,7 @@ jobs:
         with:
           python-version: 3.8
 
-      - name: Set up Node.js
+      - name: Install Node.js
         uses: actions/setup-node@v2
         with:
           node-version: '20'
@@ -28,17 +27,10 @@ jobs:
           pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Install Node.js dependencies
+
+      - name: Install the node dependencies
         run: |
           rfbrowser init
-
-  test:
-    needs: setup
-    runs-on: ubuntu-latest
-    if: success()
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
 
       - name: Run Robot Framework tests
         run: python -m robot --exitonfailure --outputdir results --pythonpath . tests
