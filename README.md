@@ -11,10 +11,10 @@ This session describe recommended robot framework script development tools.
 * Clone this repository ([details](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository?tool=desktop))
 * Install Required Python 3.10 or later without add it to path
     > You can install more than one version since it is not in the path
-* If Windows, update Windwos Policies `Set-ExecutionPolicy Unrestricted -Scope Process`
+* If Windows, update Windwos Policies `Set-ExecutionPolicy RemoteSigned -Scope CurrentUser` and `Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser`
 * Create a virtual environment `<CUSTOM_PYTHON_FOLDER>/python.exe -m venv venv` using custom python installation
 * Activate virtual environment `./venv/Scripts/activate`
-* Update pip `pip install -U pip` to ensure latest version is used
+* Update pip `python.exe -m pip install --upgrade pip` to ensure latest version is used
 * Install requirements `pip install -r requirements.txt` into venv
 * Install Robot Framework Browser depdendencies `rfbrowser init` into venv
   > IMPORTANT: If using Windows, you need to open another instance of terminal each time you install anything into it to get effect.
@@ -22,7 +22,8 @@ This session describe recommended robot framework script development tools.
 * Open the Workspace
 * Click over login.robot and verify that the robot framework language server works as expected.
 
-    
+## Script Execution Best Practices
+See [s](https://docs.robotframework.org/docs/examples/project_structure#good-practice-use---pythonpath-command-line-argument-and-resources-subfolder)
 ## Development Workflow Best Practices
 In order to keep the coding change controls, some branch protection are necessary. 
 

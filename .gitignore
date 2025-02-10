@@ -161,3 +161,11 @@ cython_debug/
 
 # local test results
 results/*
+report.html
+tests/log.html
+tests/output.xml
+tests/playwright-log.txt
+tests/report.html
+log.html
+output.xml
+playwright-log.txt
